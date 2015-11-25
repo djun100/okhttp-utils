@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'
-apply plugin: 'com.jfrog.bintray'
+//apply plugin: 'com.github.dcendents.android-maven'
+//apply plugin: 'com.jfrog.bintray'
 
 version = "1.0.2"
 
@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         minSdkVersion 10
-        targetSdkVersion 23
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
     }
@@ -30,7 +30,7 @@ def siteUrl = 'https://github.com/hongyangAndroid/okhttp-utils'                 
 def gitUrl = 'https://github.com/hongyangAndroid/okhttp-utils.git'                     // #CONFIG# // project git
 group = "com.zhy"
 
-install {
+/*install {*//*
     repositories.mavenInstaller {
         // This generates POM.xml with proper parameters
         pom {
@@ -60,7 +60,7 @@ install {
             }
         }
     }
-}
+}*//*
 
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
@@ -126,7 +126,7 @@ task makeJar(type: Copy) {
     rename ('classes.jar', 'okhttputils.jar')
 }
 
-makeJar.dependsOn(clearJar, build)
+makeJar.dependsOn(clearJar, build)*/
 
 
 

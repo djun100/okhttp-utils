@@ -4,8 +4,16 @@ import android.app.Application;
 
 import com.zhy.http.okhttp.OkHttpClientManager;
 
+import org.apache.http.conn.ssl.X509HostnameVerifier;
+
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
+
+import javax.net.ssl.SSLException;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocket;
+import javax.security.cert.X509Certificate;
 
 import okio.Buffer;
 
@@ -28,6 +36,22 @@ public class MyApplication extends Application
             "23XQ96HU8xfgSZMJS6U00WHAI7zp0q208RSUft9wDq9ee///VOhzR6Tebg9QfyPSohkBrhXQenvQ\n" +
             "og555S+C3eJAAVeNCTeMS3N/M5hzBRJAoffn3qoYdAO1Q8bTguOi+2849A==\n" +
             "-----END CERTIFICATE-----";
+    private String CER_TEST="-----BEGIN CERTIFICATE-----\n" +
+            "MIICcTCCAdoCCQC01YXqTV/YaTANBgkqhkiG9w0BAQsFADB9MQswCQYDVQQGEwJD\n" +
+            "TjERMA8GA1UECAwITGlhb05pbmcxDzANBgNVBAcMBkRhTGlhbjENMAsGA1UECgwE\n" +
+            "Sm95ZTEMMAoGA1UECwwDVEVDMQ0wCwYDVQQDDARUZXN0MR4wHAYJKoZIhvcNAQkB\n" +
+            "Fg9iaW5nQGdvb29rdS5jb20wHhcNMTUwNjI1MDk0NjQwWhcNMTYwNjI0MDk0NjQw\n" +
+            "WjB9MQswCQYDVQQGEwJDTjERMA8GA1UECAwITGlhb05pbmcxDzANBgNVBAcMBkRh\n" +
+            "TGlhbjENMAsGA1UECgwESm95ZTEMMAoGA1UECwwDVEVDMQ0wCwYDVQQDDARUZXN0\n" +
+            "MR4wHAYJKoZIhvcNAQkBFg9iaW5nQGdvb29rdS5jb20wgZ8wDQYJKoZIhvcNAQEB\n" +
+            "BQADgY0AMIGJAoGBAKz8NwIn4l+MC/ShiPQz8Zxy2MnYOlJH/clqIVpeaTm5krBH\n" +
+            "OnBSeTJStcRFCQj2DTWDzwVJPT6128RDSy/ZdSEoHJCeR76YbhQnU0gGQARPEjRY\n" +
+            "2eASh6+CT/qkELIz/erz0/+disSamkSn5xZuyQ46ouTPvBjAh+ApFOPNBtiTAgMB\n" +
+            "AAEwDQYJKoZIhvcNAQELBQADgYEAJUJunR4qjgbVbYUEWEMpqrVsB+RenZzPYNvE\n" +
+            "g9D+BHk5GW2jhLn21CdPqwpDY6x8SRTLroN8SuRHT8z8KEpAqzjtx1stRRUY/q7t\n" +
+            "h7OOTKON4ok4qbC2k8xvRECVO3VkiJ0aIceg2DfPaWSVFbtxMTaNvPeaVF5jC7QR\n" +
+            "GMDu2WQ=\n" +
+            "-----END CERTIFICATE-----";
 
     @Override
     public void onCreate()
@@ -35,10 +59,18 @@ public class MyApplication extends Application
         super.onCreate();
         OkHttpClientManager.getInstance().setCertificates(new InputStream[]{
                 new Buffer()
-                        .writeUtf8(CER_12306)
+                        .writeUtf8(CER_TEST)
                         .inputStream()});
-        OkHttpClientManager.getInstance().getOkHttpClient().setConnectTimeout(100000, TimeUnit.MILLISECONDS);
 
-
+/*        try
+        {
+            OkHttpClientManager.getInstance()
+                    .setCertificates(
+//                            getAssets().open("aaa.cer"),
+                            getAssets().open("server.crt"));
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }*/
     }
 }

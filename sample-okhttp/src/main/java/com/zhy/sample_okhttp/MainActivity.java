@@ -152,17 +152,14 @@ public class MainActivity extends AppCompatActivity
         String url = "https://raw.githubusercontent.com/hongyangAndroid/okhttp-utils/master/user.gson";
 
         new OkHttpRequest.Builder().url(url)
-                .get(new MyResultCallback<String>()
-                {
+                .get(new MyResultCallback<String>() {
                     @Override
-                    public void onError(Request request, Exception e)
-                    {
+                    public void onError(Request request, Exception e) {
                         Log.e("TAG", "onError , e = " + e.getMessage());
                     }
 
                     @Override
-                    public void onResponse(String response)
-                    {
+                    public void onResponse(String response) {
                         mTv.setText(response);
                     }
                 });
@@ -175,17 +172,14 @@ public class MainActivity extends AppCompatActivity
         //https://kyfw.12306.cn/otn/
         //https://192.168.187.1:8443/
         String url = "http://www.csdn.net/";
-        new OkHttpRequest.Builder().url(url).get(new MyResultCallback<String>()
-        {
+        new OkHttpRequest.Builder().url(url).get(new MyResultCallback<String>() {
             @Override
-            public void onError(Request request, Exception e)
-            {
+            public void onError(Request request, Exception e) {
                 Log.e("TAG", "onError" + e.getMessage());
             }
 
             @Override
-            public void onResponse(String response)
-            {
+            public void onResponse(String response) {
                 mTv.setText(response);
             }
         });
@@ -277,6 +271,39 @@ public class MainActivity extends AppCompatActivity
                 .destFileDir(Environment.getExternalStorageDirectory().getAbsolutePath())
                 .destFileName("gson-2.2.1.jar")
                 .download(stringResultCallback);
+    }
+    public void httpsTest(View view)
+    {
+        Map<String, String> params = new HashMap<String, String>();
+        String url = "https://192.168.1.124:5800/api/test";
+        new OkHttpRequest.Builder()
+                .url(url).content("").post(new MyResultCallback<String>() {
+            @Override
+            public void onError(Request request, Exception e) {
+                Log.e("TAG", "onError" + e.getMessage());
+                mTv.setText(e.getMessage());
+            }
+
+            @Override
+            public void onResponse(String response) {
+                Log.w("", "response:" + response);
+
+                mTv.setText(response);
+            }
+        })/*.get(new MyResultCallback<String>() {
+            @Override
+            public void onError(Request request, Exception e) {
+                Log.e("TAG", "onError" + e.getMessage());
+                mTv.setText(e.getMessage());
+            }
+
+            @Override
+            public void onResponse(String response) {
+                Log.w("", "response:" + response);
+
+                mTv.setText(response);
+            }
+        })*/;
     }
 
     @Override

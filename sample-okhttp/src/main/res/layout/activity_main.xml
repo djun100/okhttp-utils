@@ -65,6 +65,11 @@
             android:layout_height="wrap_content"
             android:onClick="downloadFile"
             android:text="Download File"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="httpsTest"
+            android:text="httpsTest"/>
 
     </com.zhy.sample_okhttp.FlowLayout>
 
