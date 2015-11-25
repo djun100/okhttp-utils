@@ -1,3 +1,21 @@
+usage
+
+     repositories {
+        // ...
+        maven { url "https://jitpack.io" }
+    }
+
+`compile 'com.github.okhttp-utils:2dc5dab9cc20a2fd1d006c5d472df6cfbf681046'
+`
+if you use https,add this to your app
+
+            OkHttpClientManager.getInstance().setCertificates(new InputStream[]{
+                new Buffer()
+                        .writeUtf8(CER_TEST)
+                        .inputStream()});
+CER_TEST is cer file text.
+
+以下为原文叙述
 # okhttp-utils
 对okhttp的封装类，okhttp见：[https://github.com/square/okhttp](https://github.com/square/okhttp).
 
