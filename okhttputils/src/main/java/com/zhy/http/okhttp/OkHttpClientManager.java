@@ -1,8 +1,10 @@
 package com.zhy.http.okhttp;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -316,6 +318,15 @@ public class OkHttpClientManager
         } catch (KeyStoreException e)
         {
             e.printStackTrace();
+        }
+    }
+    public void setCertificate(Context context,String assetFileName){
+
+        try {
+            OkHttpClientManager.getInstance().setCertificates(
+                    new InputStream[]{context.getResources().getAssets().open(assetFileName)});
+        } catch (IOException e) {
+            Log.e("", e.getMessage() + " https证书设置失败");
         }
     }
 

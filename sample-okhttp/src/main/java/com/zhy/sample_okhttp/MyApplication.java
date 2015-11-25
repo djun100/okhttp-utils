@@ -57,10 +57,11 @@ public class MyApplication extends Application
     public void onCreate()
     {
         super.onCreate();
-        OkHttpClientManager.getInstance().setCertificates(new InputStream[]{
+/*        OkHttpClientManager.getInstance().setCertificates(new InputStream[]{
                 new Buffer()
                         .writeUtf8(CER_TEST)
-                        .inputStream()});
+                        .inputStream()});*/
+        OkHttpClientManager.getInstance().setCertificate(getApplicationContext(),"server.crt");
 
 /*        try
         {

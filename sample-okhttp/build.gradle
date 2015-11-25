@@ -23,4 +23,5 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.2.1'
     compile project(':okhttputils')
+//    compile 'com.github.djun100:okhttp-utils:2dc5dab9cc20a2fd1d006c5d472df6cfbf681046'
 }
