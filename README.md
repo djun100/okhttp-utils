@@ -5,8 +5,9 @@ usage
         maven { url "https://jitpack.io" }
     }
 
-`compile 'com.github.okhttp-utils:2dc5dab9cc20a2fd1d006c5d472df6cfbf681046'
+`compile 'com.github.djun100:okhttp-utils:2dc5dab9cc20a2fd1d006c5d472df6cfbf681046'
 `
+
 if you use https,add this to your app
 
             OkHttpClientManager.getInstance().setCertificates(new InputStream[]{
