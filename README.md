@@ -5,16 +5,12 @@ usage
         maven { url "https://jitpack.io" }
     }
 
-`compile 'com.github.djun100:okhttp-utils:2dc5dab9cc20a2fd1d006c5d472df6cfbf681046'
+`compile 'com.github.djun100:okhttp-utils:70ea5fc725407787f3066506bf76ef74ca04b21c'
 `
 
 if you use https,add this to your app
 
-            OkHttpClientManager.getInstance().setCertificates(new InputStream[]{
-                new Buffer()
-                        .writeUtf8(CER_TEST)
-                        .inputStream()});
-CER_TEST is cer file text.
+           OkHttpClientManager.getInstance().setCertificate(getApplicationContext(),"server.crt");
 
 以下为原文叙述
 # okhttp-utils
