@@ -172,7 +172,10 @@ public class MainActivity extends AppCompatActivity
         //https://kyfw.12306.cn/otn/
         //https://192.168.187.1:8443/
         String url = "http://www.csdn.net/";
-        new OkHttpRequest.Builder().url(url).get(new MyResultCallback<String>() {
+        Map<String, String> params = new HashMap<>();
+        params.put("username", "dada");
+        params.put("password", "123");
+        new OkHttpRequest.Builder().url(url).params(params).get(new MyResultCallback<String>() {
             @Override
             public void onError(Request request, Exception e) {
                 Log.e("TAG", "onError" + e.getMessage());

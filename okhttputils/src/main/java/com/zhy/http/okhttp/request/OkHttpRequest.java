@@ -1,5 +1,6 @@
 package com.zhy.http.okhttp.request;
 
+import android.util.Log;
 import android.util.Pair;
 import android.widget.ImageView;
 
@@ -262,6 +263,15 @@ public abstract class OkHttpRequest
 
         public OkHttpRequest get(ResultCallback callback)
         {
+            if (url.endsWith("/")) url=url.substring(0,url.length()-1);
+            url+="?";
+            //拼get url
+            for (Map.Entry<String, String> entry : params.entrySet()) {
+                String key=entry.getKey();
+                String value= entry.getValue();
+                url=url+key+"="+value+"&";
+            }
+            url=url.substring(0,url.length()-1);
             OkHttpRequest request = new OkHttpGetRequest(url, tag, params, headers);
             request.invokeAsyn(callback);
             return request;
