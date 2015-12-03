@@ -10,6 +10,7 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.zhy.http.okhttp.OkHttpClientManager;
+import com.zhy.http.okhttp.RequestBodyCompression;
 import com.zhy.http.okhttp.Util;
 import com.zhy.http.okhttp.callback.ResultCallback;
 
@@ -45,6 +46,7 @@ public abstract class OkHttpRequest
                             Map<String, String> params, Map<String, String> headers)
     {
         mOkHttpClient = mOkHttpClientManager.getOkHttpClient();
+//        mOkHttpClient.interceptors().add(new RequestBodyCompression.GzipRequestInterceptor());
         this.url = url;
         this.tag = tag;
         this.params = params;
@@ -263,15 +265,17 @@ public abstract class OkHttpRequest
 
         public OkHttpRequest get(ResultCallback callback)
         {
-            if (url.endsWith("/")) url=url.substring(0,url.length()-1);
-            url+="?";
-            //拼get url
-            for (Map.Entry<String, String> entry : params.entrySet()) {
-                String key=entry.getKey();
-                String value= entry.getValue();
-                url=url+key+"="+value+"&";
+            if (params!=null) {
+                if (url.endsWith("/")) url=url.substring(0,url.length()-1);
+                url+="?";
+                //拼get url
+                for (Map.Entry<String, String> entry : params.entrySet()) {
+                    String key=entry.getKey();
+                    String value= entry.getValue();
+                    url=url+key+"="+value+"&";
+                }
+                url=url.substring(0,url.length()-1);
             }
-            url=url.substring(0,url.length()-1);
             OkHttpRequest request = new OkHttpGetRequest(url, tag, params, headers);
             request.invokeAsyn(callback);
             return request;

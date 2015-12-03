@@ -61,7 +61,7 @@ public class MyApplication extends Application
                 new Buffer()
                         .writeUtf8(CER_TEST)
                         .inputStream()});*/
-        OkHttpClientManager.getInstance().setCertificate(getApplicationContext(),"server.crt");
+        OkHttpClientManager.getInstance().enableGzip(true).setCertificate(getApplicationContext(),"server.crt");
 
 /*        try
         {

@@ -309,6 +309,24 @@ public class MainActivity extends AppCompatActivity
         })*/;
     }
 
+    public void httpsGzipTest(View view){
+
+        new OkHttpRequest.Builder()
+                .url("https://192.168.1.124:5800/api/test").get(new MyResultCallback<String>() {
+            @Override
+            public void onError(Request request, Exception e) {
+                Log.e("TAG", "onError" + e.getMessage());
+                mTv.setText(e.getMessage());
+            }
+
+            @Override
+            public void onResponse(String response) {
+                Log.w("", "response:" + response);
+
+                mTv.setText(response);
+            }
+    });
+    }
     @Override
     protected void onDestroy()
     {

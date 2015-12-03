@@ -86,7 +86,19 @@ public class OkHttpClientManager
 
 
     }
+    public OkHttpClientManager enableGzip(boolean b){
+        RequestBodyCompression.GzipRequestInterceptor gzipRequestInterceptor
+                =new RequestBodyCompression.GzipRequestInterceptor();
+        if (b){
+            getOkHttpClient().interceptors().add(gzipRequestInterceptor);
+        }else {
+            if (getOkHttpClient().interceptors().contains(gzipRequestInterceptor)){
+                getOkHttpClient().interceptors().remove(gzipRequestInterceptor);
+            }
+        }
 
+        return mInstance;
+    }
     public static OkHttpClientManager getInstance()
     {
         if (mInstance == null)
