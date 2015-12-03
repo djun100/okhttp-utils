@@ -5,12 +5,13 @@ usage
         maven { url "https://jitpack.io" }
     }
 
-`compile 'com.github.djun100:okhttp-utils:3c1f6904f7bdbb86ef221a431ddc36527ee2c307'
+`compile 'com.github.djun100:okhttp-utils:63f81ab6671b597ff62006e5d95e6eaaee78bee8'
 `
 
 if you use https,add this to your app
 
            OkHttpClientManager.getInstance().setCertificate(getApplicationContext(),"server.crt");
+如果要开启gzip功能，OkHttpClientManager.getInstance().enableGzip();
 
 以下为原文叙述
 # okhttp-utils
@@ -68,8 +69,8 @@ if you use https,add this to your app
 new OkHttpRequest.Builder()
 	.url(url)
 	.get(callback);
-//扩展
-new OkHttpRequest.Builder()
+//扩展 map形式的 params参数会自动拼接
+new OkHttpGetRequest.Builder()
 	.url(url)
 	.params(params)
 	.headers(headers)
