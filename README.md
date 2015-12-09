@@ -5,7 +5,7 @@ usage
         maven { url "https://jitpack.io" }
     }
 
-`compile 'com.github.djun100:okhttp-utils:63f81ab6671b597ff62006e5d95e6eaaee78bee8'
+`compile 'com.github.djun100:okhttp-utils:0a35233df47cf43539335593ce28903b1484e411'
 `
 
 if you use https,add this to your app
