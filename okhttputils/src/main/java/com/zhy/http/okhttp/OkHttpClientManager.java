@@ -15,6 +15,8 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import com.zhy.http.okhttp.callback.ResultCallback;
 
+import org.apache.http.conn.ssl.X509HostnameVerifier;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Modifier;
@@ -29,12 +31,15 @@ import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
+import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.KeyManager;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLException;
 import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocket;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
@@ -313,6 +318,7 @@ public class OkHttpClientManager
 
     public void setCertificates(InputStream[] certificates, InputStream bksFile, String password)
     {
+        addIPUrlSupport();
         try
         {
             TrustManager[] trustManagers = prepareTrustManager(certificates);
@@ -340,6 +346,44 @@ public class OkHttpClientManager
         } catch (IOException e) {
             Log.e("", e.getMessage() + " https证书设置失败");
         }
+    }
+
+    private void addIPUrlSupport() {
+            OkHttpClientManager.getInstance().getOkHttpClient().setHostnameVerifier(new X509HostnameVerifier() {
+                @Override
+                public boolean verify(String hostname, SSLSession session) {
+                    try {
+                        verifyHost(hostname);
+                        return true;
+                    } catch (SSLException e) {
+                        e.printStackTrace();
+                        return false;
+                    }
+                }
+
+                @Override
+                public void verify(String host, String[] cns, String[] subjectAlts) throws SSLException {
+                    verifyHost(host);
+                }
+
+                @Override
+                public void verify(String host, SSLSocket ssl) throws IOException {
+                    verifyHost(host);
+                }
+
+                @Override
+                public void verify(String host, java.security.cert.X509Certificate x509Certificate) throws SSLException {
+                    verifyHost(host);
+                }
+
+                private void verifyHost(String sourceHost) throws SSLException {
+/*                if (!hostName.equals(sourceHost)) { // THIS IS WHERE YOU AUTHENTICATE YOUR EXPECTED host (IN THIS CASE 192.168.0.56)
+                    throw new SSLException("Hostname '192.168.0.56' was not verified");
+                }*/
+                }
+            })
+                    .setConnectTimeout(100000, TimeUnit.MILLISECONDS);
+
     }
 
     private X509TrustManager chooseTrustManager(TrustManager[] trustManagers)
